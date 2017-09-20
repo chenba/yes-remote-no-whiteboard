@@ -9,9 +9,14 @@ import Network.HTTP.Conduit (simpleHttp)
 import Text.HandsomeSoup
 import Text.XML.HXT.Core
 
-main :: IO ()
-main = do
+
+remoteCompanies :: IO [String]
+remoteCompanies = do
     html <- simpleHttp "https://github.com/remoteintech/remote-jobs/blob/master/README.md"
     let doc = readString [withParseHTML yes, withWarnings no] $ unpack html
-    remoteCompanyNames <- runX $ doc >>> css "tbody td:first-child" //> getText
+    runX $ doc >>> css "tbody td:first-child" //> getText
+
+main :: IO ()
+main = do
+    remoteCompanyNames <- remoteCompanies
     mapM_ putStrLn remoteCompanyNames

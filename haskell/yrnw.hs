@@ -4,17 +4,22 @@
 {-# OPTIONS_GHC -Wall #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-import Data.ByteString.Lazy.Char8 (unpack)
+import Data.ByteString.Lazy.UTF8 (toString)
 import Network.HTTP.Conduit (simpleHttp)
 import Text.HandsomeSoup
 import Text.XML.HXT.Core
 
+extractCompanyList :: String -> String -> IO [String]
+extractCompanyList url selector = do
+    html <- simpleHttp url
+    let doc = readString [withParseHTML yes, withWarnings no] $ toString html
+    runX $ doc >>> css selector //> getText
 
 remoteCompanies :: IO [String]
-remoteCompanies = do
-    html <- simpleHttp "https://github.com/remoteintech/remote-jobs/blob/master/README.md"
-    let doc = readString [withParseHTML yes, withWarnings no] $ unpack html
-    runX $ doc >>> css "tbody td:first-child" //> getText
+remoteCompanies = extractCompanyList "https://github.com/remoteintech/remote-jobs/blob/master/README.md" "tbody td:first-child"
+
+noWhiteboardCompanies :: IO [String]
+noWhiteboardCompanies = extractCompanyList "https://github.com/poteto/hiring-without-whiteboards/blob/master/README.md" "article ul li a"
 
 main :: IO ()
 main = do

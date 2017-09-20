@@ -2,10 +2,10 @@
 -- stack script --resolver lts-9.4
 
 {-# OPTIONS_GHC -Wall #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 import Data.ByteString.Lazy.UTF8 (toString)
-import Network.HTTP.Conduit (simpleHttp)
+import Data.List                 (intersect)
+import Network.HTTP.Conduit      (simpleHttp)
 import Text.HandsomeSoup
 import Text.XML.HXT.Core
 
@@ -23,5 +23,9 @@ noWhiteboardCompanies = extractCompanyList "https://github.com/poteto/hiring-wit
 
 main :: IO ()
 main = do
-    remoteCompanyNames <- remoteCompanies
-    mapM_ putStrLn remoteCompanyNames
+    remotes <- remoteCompanies
+    noWhiteboards <- noWhiteboardCompanies
+    let both = intersect remotes noWhiteboards
+    tmpl <- readFile "README.tmpl.md"
+    let readme = lines tmpl ++ map (\x -> "* " ++ x) both
+    mapM_ putStrLn readme

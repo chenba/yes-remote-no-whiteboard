@@ -10,19 +10,23 @@ This is a generated list of companie that appear on [Remote-friendly companies](
 * Articulate
 * Auth0
 * Automattic
+* Axelerant
 * Basecamp
 * Buffer
 * Chargify
 * CircleCI
+* Collabora
+* Crowdstrike
 * DigitalOcean
 * DroneDeploy
+* fournova
 * GitLab
 * GitPrime
 * Gruntwork
 * HE:labs
 * Hireology
-* InQuicker
 * Intercom
+* Jitbit
 * Librato
 * Litmus
 * Mapbox
@@ -32,8 +36,11 @@ This is a generated list of companie that appear on [Remote-friendly companies](
 * NoRedInk
 * Novoda
 * O'Reilly Media
+* Olist
 * PagerDuty
 * Platform.sh
+* Simple
 * Spreedly
+* wemake.services
 * Wildbit
 * X-Team

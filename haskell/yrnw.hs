@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
--- stack script --resolver lts-9.4
+-- stack script --resolver lts-12.16
 
 {-# OPTIONS_GHC -Wall #-}
 
